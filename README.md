@@ -1,6 +1,14 @@
 # allocWrapper README
 
+## General description
+
 This is the README for your extension "allocWrapper". This plugin can add standard induced code for dynamic allocation in the C language.
+
+## Author data
+### Full name
+Григорьев Тимофей Максимович
+### Group
+M3100
 
 ## Features
 
@@ -36,10 +44,10 @@ Output:
     if(ptr_1 == NULL) {}
     free(ptr_1);
 
-## Documentation:
-### Functions:
+## Documentation
+### Functions
 
-#### Function: getTargetText
+#### Function getTargetText
 
 	Description:
 	Finds all valid malloc,calloc,realloc calls and adds free() for each of them.
@@ -56,7 +64,7 @@ Output:
 	Return:
 	Target text. Contains if statements and free() calls.
 
-#### Function: activate
+#### Function activate
 
 	Description:
 	This is the main function of the extension. 
