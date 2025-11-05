@@ -2,7 +2,7 @@
 
 ## General description
 
-This is the README for your extension "allocWrapper". This plugin can add standard induced code for dynamic allocation in the C language.
+This plugin can add standard induced code for dynamic allocation in the C language.
 
 ## Author data
 ### Full name
