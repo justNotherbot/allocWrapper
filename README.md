@@ -1,65 +1,68 @@
-# cppu README
+# allocWrapper README
 
-This is the README for your extension "cppu". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "allocWrapper". This plugin can add standard induced code for dynamic allocation in the C language.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+This extension adds a null check and free() call for every valid allocation in the selection.
 
-For example if there is an image subfolder under your extension project workspace:
+## Usage
 
-\!\[feature X\]\(images/feature-x.png\)
+Here are some examples of how the extension works:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Selection:
 
-## Requirements
+    void* ptr1 = malloc(42);
+    int* ptr2 = calloc(69);
+Output:
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+    if(ptr1 == NULL) {}
+    free(ptr1);
+    if(ptr2 == NULL) {}
+    free(ptr2);
 
-## Extension Settings
+Selection:
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+    void ptr1 = malloc(42)
+Output:
 
-For example:
+    No valid allocations found in the selection
 
-This extension contributes the following settings:
+Selection:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+    void **ptr_1 = realloc(a, 69)    ;
+Output:
 
-## Known Issues
+    if(ptr_1 == NULL) {}
+    free(ptr_1);
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## Documentation:
+### Functions:
 
-## Release Notes
+#### Function: getTargetText
 
-Users appreciate release notes as you update your extension.
+	Description:
+	Finds all valid malloc,calloc,realloc calls and adds free() for each of them.
+	Also adds if(var == NULL){} statements for each allocation.
+	Valid calls are of the form:
+	type* ptr = malloc(....)  ;  // Any text
+	Allowed variable names:
+	Variable name can only consist of upper/lower case english characters, digits or 
+	'_' symbols. Variable must be a pointer.
+	General requirements:
+	An allocation call must end with ';'.
+	Parameters:
+	selection - selected text. Can be null.
+	Return:
+	Target text. Contains if statements and free() calls.
 
-### 1.0.0
+#### Function: activate
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+	Description:
+	This is the main function of the extension. 
+	It places target text at the end of the selection.
+	If nothing is selected, a message is triggered.
+	Parameters:
+	context: editor context
+	Return:
+	The function doesn't return anything.
