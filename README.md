@@ -16,6 +16,7 @@ This extension adds a null check and free() call for every valid allocation in t
 
 ## Usage
 
+To activate the plugin, press ctrl+shift+p. Then select "C alloc wrapper" from the menu.
 Here are some examples of how the extension works:
 
 Selection:
@@ -44,7 +45,32 @@ Output:
     if(ptr_1 == NULL) {}
     free(ptr_1);
 
+## Installation
+To install:
+1) Go to File -> Preferences -> Extensions -> ... (Views and More Actions) -> Install from VSIX
+2) Select cppu-0.0.1.vsix from the pop out.
+
 ## Documentation
+### File structure
+
+cppu-0.0.1.vsix - installable package
+
+extension.js - main code
+
+package.json - package configuration
+
+package-lock.json - detailed package configuration
+
+eslint-config.mjs - linter configuration
+
+jsconfig.json - JS config
+
+### Libraries
+
+generator-code by yeoman - General vscode extension API
+
+vsce by vscode - Library for generating .vsix package
+
 ### Functions
 
 #### Function getTargetText
